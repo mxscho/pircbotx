@@ -25,7 +25,7 @@ if [[ $TRAVIS_PULL_REQUEST != "false" || !($TRAVIS_BRANCH = "master" || $TRAVIS_
 	exit 0
 fi
 
-mvn source:jar deploy
+mvn source:jar deploy --settings .travis/maven-settings.xml
 mvn -Pcomplete-build site #site-deploy
 
 #everything is built however build may of changed repo
