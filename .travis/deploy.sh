@@ -25,8 +25,12 @@ if [[ $TRAVIS_PULL_REQUEST != "false" || !($TRAVIS_BRANCH = "master" || $TRAVIS_
 	exit 0
 fi
 
-mvn source:jar deploy --settings .travis/maven-settings.xml
-mvn -Pcomplete-build site #site-deploy
+MAVEN_SIMPLE_ARGS=-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+--batch-mode \
+--settings .travis/maven-settings.xml
+
+mvn $MAVEN_SIMPLE_ARGS source:jar deploy 
+mvn $MAVEN_SIMPLE_ARGS -Pcomplete-build site #site-deploy
 
 #everything is built however build may of changed repo
 git checkout -- .
