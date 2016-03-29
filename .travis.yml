@@ -9,10 +9,10 @@ before_script:
   - pip install --user codecov
 
 # build
-script: mvn clean install -Dsnapshot.version=-`git rev-parse --short HEAD`
+script: mvn --batch-mode clean install -Dsnapshot.version=-`git rev-parse --short HEAD`
 
 after_success:
- - mvn source:jar deploy --settings .travis/maven-settings.xml
+ - mvn source:jar --batch-mode deploy --settings .travis/maven-settings.xml
  - codecov
 # - bash -x -e .travis/deploy.sh
 
